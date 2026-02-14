@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harry Llama Sandbox — Walk through the complete experience from onboarding to live coverage planning.">
+    <title>Harry Llama Sandbox - Demo Environment</title>
+    <link rel="icon" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1F2437',
+                        'brand-blue': '#01B7D4',
+                        'brand-orange': '#E16A1E',
+                        'hl-purple': '#4A3F7A',
+                        'hl-orange': '#EF8A30',
+                        'slate-text': '#334155'
+                    },
+                    fontFamily: {
+                        'sans': ['Sora', 'Helvetica Neue', 'system-ui', 'sans-serif'],
+                        'heading': ['Helvetica Neue', 'Sora', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Sora', 'Helvetica Neue', system-ui, sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Helvetica Neue', 'Sora', system-ui, sans-serif;
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #F8FAFC;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 1rem;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in-up, .slide-in-right {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .btn-primary {
+            background-color: #E16A1E;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #c85a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(225, 106, 30, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #01B7D4;
+            color: #01B7D4;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #01B7D4;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(1, 183, 212, 0.3);
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background-color: #F0F9FB;
+            border-radius: 0.5rem;
+        }
+
+        .details-summary {
+            color: #1F2437;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .details-summary:hover {
+            background-color: #F0F9FB;
+        }
+
+        .details-summary::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%231F2437" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] .details-summary::before {
+            transform: rotate(90deg);
+        }
+
+        .details-content {
+            padding: 0 1rem 1rem 1rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .step-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-list li {
+            padding: 0.75rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: #01B7D4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .header-navy {
+            background-color: #1F2437;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem 0.75rem 0 0;
+        }
+
+        .talking-points-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .talking-points-list li {
+            padding: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .talking-points-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%2301B7D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        a {
+            color: #01B7D4;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="/" class="flex-shrink-0">
+                    <img src="images/ln_logo.png" alt="Lucid North" height="40">
+                </a>
+
+                <!-- Navigation Links -->
+                <div class="flex items-center space-x-8">
+                    <a href="tools.html" class="text-slate-700 hover:text-navy font-medium cursor-pointer transition">Tools</a>
+                    <a href="sandbox.html" class="border-b-2 border-brand-blue text-navy font-semibold cursor-pointer transition">Sandbox</a>
+                    <a href="mailto:Brian.McManus1977@gmail.com" class="text-slate-700 hover:text-navy font-medium cursor-pointer transition">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Compact Hero Section -->
+    <section class="bg-slate-100 py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-navy mb-4">
+                Demo Sandbox
+            </h1>
+            <p class="text-lg md:text-xl text-slate-text max-w-2xl mx-auto">
+                Walk through the complete Harry Llama experience — from onboarding to generating a live coverage plan.
+            </p>
+        </div>
+    </section>
+
+    <!-- Access Card -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="card border-l-4 border-brand-blue p-8">
+                <h2 class="text-2xl font-bold text-navy mb-6">
+                    Sandbox Login
+                </h2>
+                <p class="text-slate-text mb-6">
+                    Access the full Harry Llama demo environment to see onboarding, coverage planning, and all features in action.
+                </p>
+                <a href="https://demo.lucid-north.com" target="_blank" class="btn-primary">
+                    Open Sandbox
+                </a>
+                <p class="text-sm text-slate-400 mt-4">
+                    Contact your team lead for credentials.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Flow Guide -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-navy text-center mb-8">
+                Demo Flow Guide
+            </h2>
+
+            <!-- Phase 1: Onboarding -->
+            <details class="card mb-6" open>
+                <summary class="details-summary">Phase 1: Onboarding</summary>
+                <div class="details-content">
+                    <ol class="step-list space-y-4">
+                        <li>Select rotation type (A/B Day, 4-Day, etc.)</li>
+                        <li>Upload bell schedule — use <a href="tools.html">Bell Schedule Parser from Tools page</a></li>
+                        <li>Upload master schedule — use <a href="tools.html">Master Schedule Parser from Tools page</a></li>
+                        <li>Review teacher schedules and verify period assignments</li>
+                        <li>Configure period types and coverage preferences</li>
+                        <li>Add substitute pool</li>
+                        <li>Set calendar rules and holidays</li>
+                    </ol>
+                </div>
+            </details>
+
+            <!-- Phase 2: Daily Operations -->
+            <details class="card mb-6">
+                <summary class="details-summary">Phase 2: Daily Operations</summary>
+                <div class="details-content">
+                    <ol class="step-list space-y-4">
+                        <li>Create teacher absences for today</li>
+                        <li>Run "Generate Coverage Plan"</li>
+                        <li>Review the coverage grid — note tiered assignments and fill rate</li>
+                        <li>Manually assign any remaining unfilled slots</li>
+                        <li>Confirm the plan</li>
+                    </ol>
+                </div>
+            </details>
+
+            <!-- Phase 3: Reset -->
+            <details class="card">
+                <summary class="details-summary">Phase 3: Reset</summary>
+                <div class="details-content">
+                    <p>When demo data gets stale, request a sandbox reset to start fresh. Contact the dev team.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- Talking Points Card -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="card overflow-hidden">
+                <div class="header-navy">
+                    <h2 class="text-2xl font-bold">
+                        Key Talking Points
+                    </h2>
+                </div>
+                <div class="p-8">
+                    <ul class="talking-points-list">
+                        <li>No direct competitor — Frontline and Red Rover track absences, Harry Llama handles the coverage gap.</li>
+                        <li>92% time reduction — 114 hours of scheduling reduced to 9 hours annually.</li>
+                        <li>Fair rotation ensures equitable distribution. No teacher gets overloaded.</li>
+                        <li>FERPA compliant — TLS 1.3, AES-256 encryption, SOC 2 aligned.</li>
+                        <li>7-step onboarding — schools are live in under 2 weeks.</li>
+                        <li>LTV:CAC ratio of 80:1 — exceptional unit economics for SaaS.</li>
+                        <li>$10.6M TAM in New Jersey alone. $552M+ nationally.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-bold mb-2">
+                        Lucid North LLC
+                    </h3>
+                    <p class="text-slate-300 text-sm">
+                        Smarter Solutions. Smarter Schools.
+                    </p>
+                </div>
+
+                <p class="text-slate-300 text-sm">
+                    © 2026 <a href="https://lucid-north.com" class="text-brand-blue hover:underline cursor-pointer transition">Lucid North</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
