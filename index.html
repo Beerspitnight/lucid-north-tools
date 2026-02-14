@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harry Llama — AI-powered substitute coverage scheduling for K-12 schools. End the morning scramble.">
+    <title>Harry Llama - AI Substitute Coverage Scheduling</title>
+    <link rel="icon" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1F2437',
+                        'brand-blue': '#01B7D4',
+                        'brand-orange': '#E16A1E',
+                        'hl-purple': '#4A3F7A',
+                        'hl-orange': '#EF8A30',
+                        'slate-text': '#334155'
+                    },
+                    fontFamily: {
+                        'sans': ['Sora', 'Helvetica Neue', 'system-ui', 'sans-serif'],
+                        'heading': ['Helvetica Neue', 'Sora', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Sora', 'Helvetica Neue', system-ui, sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Helvetica Neue', 'Sora', system-ui, sans-serif;
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #F8FAFC;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 1rem;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        @keyframes fillBlock {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .fill-block {
+            animation: fillBlock 2s ease-in-out forwards;
+        }
+
+        .fill-block-1 {
+            animation-delay: 0.3s;
+        }
+
+        .fill-block-2 {
+            animation-delay: 0.6s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fill-block, .fade-in-up, .slide-in-right {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .btn-primary {
+            background-color: #E16A1E;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #c85a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(225, 106, 30, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #01B7D4;
+            color: #01B7D4;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #01B7D4;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(1, 183, 212, 0.3);
+        }
+
+        .stat-underline {
+            border-bottom: 4px solid #01B7D4;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background-color: #F0F9FB;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="/" class="flex-shrink-0">
+                    <img src="images/ln_logo.png" alt="Lucid North" height="40">
+                </a>
+
+                <!-- Navigation Links -->
+                <div class="flex items-center space-x-8">
+                    <a href="tools.html" class="text-slate-700 hover:text-navy font-medium cursor-pointer transition">Tools</a>
+                    <a href="sandbox.html" class="text-slate-700 hover:text-navy font-medium cursor-pointer transition">Sandbox</a>
+                    <a href="mailto:Brian.McManus1977@gmail.com" class="text-slate-700 hover:text-navy font-medium cursor-pointer transition">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-white py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <!-- Left Column: Copy & CTAs -->
+                <div class="fade-in-up">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-navy mb-6 leading-tight">
+                        End the morning scramble
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-text mb-8 leading-relaxed">
+                        Harry Llama automates daily substitute coverage scheduling for K-12 schools — reducing 114 hours of annual scheduling chaos to 9 hours of simple oversight.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="sandbox.html" class="btn-primary text-center sm:text-left">
+                            See it live
+                        </a>
+                        <a href="tools.html" class="btn-secondary text-center sm:text-left">
+                            Explore tools
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Coverage Grid Illustration -->
+                <div class="slide-in-right">
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Block 1 - Navy -->
+                        <div class="aspect-square rounded-2xl bg-navy"></div>
+
+                        <!-- Block 2 - Brand Blue -->
+                        <div class="aspect-square rounded-2xl bg-brand-blue"></div>
+
+                        <!-- Block 3 - Brand Orange (animated) -->
+                        <div class="aspect-square rounded-2xl bg-brand-orange fill-block fill-block-1"></div>
+
+                        <!-- Block 4 - Navy -->
+                        <div class="aspect-square rounded-2xl bg-navy"></div>
+
+                        <!-- Block 5 - Brand Blue (animated) -->
+                        <div class="aspect-square rounded-2xl bg-brand-blue fill-block fill-block-2"></div>
+
+                        <!-- Block 6 - Brand Orange -->
+                        <div class="aspect-square rounded-2xl bg-brand-orange"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem / Solution Cards -->
+    <section class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Problem Card -->
+                <div class="card p-8 md:p-10">
+                    <h2 class="text-2xl md:text-3xl font-bold text-navy mb-4">
+                        The Problem
+                    </h2>
+                    <p class="text-base md:text-lg text-slate-text leading-relaxed">
+                        Every morning, administrators scramble through spreadsheets, whiteboards, and group texts to cover teacher absences. It takes 114 hours a year.
+                    </p>
+                </div>
+
+                <!-- Solution Card -->
+                <div class="card p-8 md:p-10">
+                    <h2 class="text-2xl md:text-3xl font-bold text-navy mb-4">
+                        The Solution
+                    </h2>
+                    <p class="text-base md:text-lg text-slate-text leading-relaxed">
+                        Harry Llama's AI engine assigns coverage in seconds — prioritizing co-teachers, respecting workload limits, and tracking fill rates automatically.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-navy text-center mb-12">
+                How It Works
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1: Upload -->
+                <div class="card p-8">
+                    <div class="icon-container mb-6 mx-auto w-fit">
+                        <svg class="w-6 h-6 text-navy" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3 text-center">
+                        Upload
+                    </h3>
+                    <p class="text-slate-text text-center">
+                        Upload your master schedule. Excel, CSV — we handle the formatting.
+                    </p>
+                </div>
+
+                <!-- Step 2: Report -->
+                <div class="card p-8">
+                    <div class="icon-container mb-6 mx-auto w-fit">
+                        <svg class="w-6 h-6 text-navy" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3 text-center">
+                        Report
+                    </h3>
+                    <p class="text-slate-text text-center">
+                        Enter daily teacher absences. Or import them from your existing system.
+                    </p>
+                </div>
+
+                <!-- Step 3: Cover -->
+                <div class="card p-8">
+                    <div class="icon-container mb-6 mx-auto w-fit">
+                        <svg class="w-6 h-6 text-navy" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3 text-center">
+                        Cover
+                    </h3>
+                    <p class="text-slate-text text-center">
+                        AI generates an optimized coverage plan in seconds. Review, adjust, confirm.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Numbers / Stats -->
+    <section class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                <!-- Stat 1: Time Reduction -->
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-navy mb-2 stat-underline">
+                        92%
+                    </div>
+                    <p class="text-base md:text-lg text-slate-text font-medium">
+                        time reduction
+                    </p>
+                </div>
+
+                <!-- Stat 2: Hours Per Year -->
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-navy mb-2 stat-underline">
+                        114 → 9
+                    </div>
+                    <p class="text-base md:text-lg text-slate-text font-medium">
+                        hours per year
+                    </p>
+                </div>
+
+                <!-- Stat 3: Annual Savings -->
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-navy mb-2 stat-underline">
+                        $6,750+
+                    </div>
+                    <p class="text-base md:text-lg text-slate-text font-medium">
+                        annual savings per school
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Grid -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-navy text-center mb-12">
+                Capabilities
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Capability 1: AI Schedule Parsing -->
+                <div class="card p-8">
+                    <h3 class="text-xl font-bold text-navy mb-3">
+                        AI Schedule Parsing
+                    </h3>
+                    <p class="text-slate-text">
+                        Upload any Excel master schedule. AI extracts teachers, periods, and rooms in minutes.
+                    </p>
+                </div>
+
+                <!-- Capability 2: Tiered Auto-Assignment -->
+                <div class="card p-8">
+                    <h3 class="text-xl font-bold text-navy mb-3">
+                        Tiered Auto-Assignment
+                    </h3>
+                    <p class="text-slate-text">
+                        Co-teachers first, then internal coverage, then external subs. Every assignment is cost-optimized.
+                    </p>
+                </div>
+
+                <!-- Capability 3: Fair Rotation -->
+                <div class="card p-8">
+                    <h3 class="text-xl font-bold text-navy mb-3">
+                        Fair Rotation
+                    </h3>
+                    <p class="text-slate-text">
+                        Equitable distribution with workload limits. No teacher gets overloaded.
+                    </p>
+                </div>
+
+                <!-- Capability 4: Real-Time Fill Rate -->
+                <div class="card p-8">
+                    <h3 class="text-xl font-bold text-navy mb-3">
+                        Real-Time Fill Rate
+                    </h3>
+                    <p class="text-slate-text">
+                        See exactly how covered you are. Unfilled slots always count against the percentage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-bold mb-2">
+                        Lucid North LLC
+                    </h3>
+                    <p class="text-slate-300 text-sm">
+                        Smarter Solutions. Smarter Schools.
+                    </p>
+                </div>
+
+                <p class="text-slate-300 text-sm">
+                    © 2026 <a href="https://lucid-north.com" class="text-brand-blue hover:underline cursor-pointer transition">Lucid North</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
