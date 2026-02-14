@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Schedule Parser — HLS Demo Tools</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --green: #16a34a;
+      --red: #dc2626;
+      --yellow: #eab308;
+      --blue: #0ea5e9;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.5; padding: 2rem 1rem;
+    }
+    .container { max-width: 860px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    header { text-align: center; margin-bottom: 2rem; }
+    header h1 { font-size: 1.75rem; }
+    .subtitle { color: var(--muted); margin-top: 0.25rem; }
+
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem;
+      transition: opacity 0.2s;
+    }
+    .card.disabled { opacity: 0.45; pointer-events: none; }
+    .card h2 {
+      font-size: 1.15rem; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-block; padding: 0.55rem 1.25rem;
+      background: var(--primary); color: #fff; border: none;
+      border-radius: var(--radius); font-size: 0.9rem;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary {
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary:hover { background: var(--primary); color: #fff; }
+    .btn-row { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+
+    .upload-area {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .upload-area input[type="file"] { flex: 1; min-width: 200px; }
+
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .field input[type="text"], .field select {
+      padding: 0.4rem 0.6rem; border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 0.9rem; width: 100%;
+    }
+    .field input[type="text"]:focus, .field select:focus {
+      outline: none; border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    }
+
+    .summary { margin-top: 1rem; }
+    .summary.hidden { display: none; }
+
+    #summary-stats {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;
+    }
+    .stat { font-size: 0.95rem; }
+    .text-green { color: var(--green); }
+    .text-red { color: var(--red); }
+    .text-yellow { color: #ca8a04; }
+    .text-blue { color: var(--blue); }
+
+    .issues-list {
+      margin-top: 1rem; border-left: 4px solid var(--border);
+      padding-left: 1rem;
+    }
+    .issue {
+      padding: 0.5rem 0; font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .issue:last-child { border-bottom: none; }
+    .issue.error { color: var(--red); }
+    .issue.warning { color: #ca8a04; }
+    .issue.info { color: var(--blue); }
+
+    .table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td {
+      text-align: left; padding: 0.5rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th { background: #f1f5f9; font-weight: 600; white-space: nowrap; }
+    td { max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
+
+    .truncation-note { color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="breadcrumb"><a href="../">HLS Tools</a> / Master Schedule Parser</nav>
+
+    <header>
+      <h1>Master Schedule Parser</h1>
+      <p class="subtitle">Parse Excel master schedules and convert to CSV for HLS import.</p>
+    </header>
+
+    <!-- Step 1: Upload & Configure -->
+    <section class="card" id="step-upload">
+      <h2><span class="step-num">1</span> Upload &amp; Configure</h2>
+
+      <div class="upload-area">
+        <input type="file" id="excel-file" accept=".xlsx,.xls">
+        <button id="btn-upload" class="btn" disabled>Upload</button>
+      </div>
+
+      <div id="upload-summary" class="summary hidden">
+        <div class="field">
+          <label for="sheet-select">Sheet</label>
+          <select id="sheet-select"></select>
+        </div>
+
+        <div class="field">
+          <label for="non-teaching-labels">Non-Teaching Labels (comma-separated)</label>
+          <input type="text" id="non-teaching-labels" value="Prep, Planning, Duty" placeholder="e.g., Prep, Planning, Duty">
+        </div>
+
+        <button id="btn-parse" class="btn" disabled>Parse</button>
+      </div>
+    </section>
+
+    <!-- Step 2: Review -->
+    <section class="card disabled" id="step-review">
+      <h2><span class="step-num">2</span> Review</h2>
+
+      <div id="summary-stats">
+        <span class="stat">Teachers: <strong id="stat-teachers"></strong></span>
+        <span class="stat">Errors: <strong id="stat-errors" class="text-red"></strong></span>
+        <span class="stat">Warnings: <strong id="stat-warnings" class="text-yellow"></strong></span>
+      </div>
+
+      <div id="issues-container" class="summary hidden">
+        <h3>Issues (max 20 shown)</h3>
+        <div id="issues-list" class="issues-list"></div>
+      </div>
+
+      <h3>Data Preview (first 15 teachers, first 8 columns)</h3>
+      <div class="table-wrap">
+        <table id="preview-table">
+          <thead>
+            <tr id="preview-header"></tr>
+          </thead>
+          <tbody id="preview-body"></tbody>
+        </table>
+      </div>
+      <div id="truncation-note" class="truncation-note hidden"></div>
+    </section>
+
+    <!-- Step 3: Download -->
+    <section class="card disabled" id="step-download">
+      <h2><span class="step-num">3</span> Download</h2>
+
+      <p>Download the CSV and import it into HLS as a master schedule.</p>
+
+      <div class="btn-row">
+        <button id="btn-download" class="btn" disabled>Download CSV</button>
+        <button id="btn-start-over" class="btn btn-secondary">Start Over</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

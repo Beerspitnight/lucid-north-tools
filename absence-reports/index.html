@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Absence Report Generator — HLS Demo Tools</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --green: #16a34a;
+      --red: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.5; padding: 2rem 1rem;
+    }
+    .container { max-width: 860px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    header { text-align: center; margin-bottom: 2rem; }
+    header h1 { font-size: 1.75rem; }
+    .subtitle { color: var(--muted); margin-top: 0.25rem; }
+
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem;
+      transition: opacity 0.2s;
+    }
+    .card.disabled { opacity: 0.45; pointer-events: none; }
+    .card h2 {
+      font-size: 1.15rem; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-block; padding: 0.55rem 1.25rem;
+      background: var(--primary); color: #fff; border: none;
+      border-radius: var(--radius); font-size: 0.9rem;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary {
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary:hover { background: var(--primary); color: #fff; }
+    .btn-row { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+
+    .upload-area {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .upload-area input[type="file"] { flex: 1; min-width: 200px; }
+
+    .summary { margin-top: 1rem; }
+    .summary.hidden { display: none; }
+
+    #dept-list {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem;
+    }
+    .dept-tag {
+      display: inline-block; background: #e0e7ff; color: #3730a3;
+      padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.8rem;
+    }
+
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; }
+
+    input[type="range"] {
+      -webkit-appearance: none; width: 100%; height: 6px;
+      border-radius: 3px; background: var(--border); outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 18px; height: 18px;
+      border-radius: 50%; background: var(--primary); cursor: pointer;
+    }
+    input[type="date"] {
+      padding: 0.4rem 0.6rem; border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 0.9rem;
+    }
+
+    .checkbox-group { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .checkbox-label {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-weight: 400; font-size: 0.9rem; cursor: pointer;
+    }
+
+    #report-stats {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;
+    }
+    .stat { font-size: 0.95rem; }
+    .text-green { color: var(--green); }
+    .text-red { color: var(--red); }
+
+    .table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td {
+      text-align: left; padding: 0.5rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th { background: #f1f5f9; font-weight: 600; white-space: nowrap; }
+    h3 { font-size: 1rem; margin: 1rem 0 0.5rem; }
+    .sub-cell { color: var(--green); font-weight: 500; }
+
+    .or-divider {
+      text-align: center; color: var(--muted); font-size: 0.85rem;
+      margin: 0.75rem 0; font-style: italic;
+    }
+    .generate-link {
+      text-align: center; margin-top: 0.5rem;
+    }
+    .generate-link a {
+      color: var(--primary); font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="breadcrumb"><a href="../">HLS Demo Tools</a> / Absence Report Generator</nav>
+
+    <header>
+      <h1>Absence Report Generator</h1>
+      <p class="subtitle">Generate realistic Aesop-style absence report PDFs from a master schedule.</p>
+    </header>
+
+    <!-- Step 1: Upload -->
+    <section class="card" id="step-upload">
+      <h2><span class="step-num">1</span> Upload Master Schedule</h2>
+      <div class="upload-area">
+        <input type="file" id="csv-file" accept=".csv">
+        <button id="btn-upload" class="btn" disabled>Upload</button>
+      </div>
+      <div class="or-divider">or</div>
+      <div class="generate-link">
+        <a href="../schedule-generator/">Generate a test schedule first</a>
+      </div>
+      <div id="upload-summary" class="summary hidden">
+        <p><strong>Teachers found:</strong> <span id="teacher-count"></span></p>
+        <div id="dept-list"></div>
+      </div>
+    </section>
+
+    <!-- Step 2: Configure -->
+    <section class="card disabled" id="step-config">
+      <h2><span class="step-num">2</span> Configure Report</h2>
+
+      <div class="field">
+        <label for="report-date">Report Date</label>
+        <input type="date" id="report-date">
+      </div>
+
+      <div class="field">
+        <label for="num-absences">
+          Number of Absent Teachers: <span id="absences-val">8</span>
+        </label>
+        <input type="range" id="num-absences" min="1" max="50" value="8">
+      </div>
+
+      <div class="field">
+        <label for="num-subs">
+          Available Substitutes: <span id="subs-val">12</span>
+        </label>
+        <input type="range" id="num-subs" min="0" max="24" value="12">
+      </div>
+
+      <div class="field">
+        <label>Duration Types</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="duration" value="Full Day" checked> Full Day
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="duration" value="Half Day AM" checked> Half Day AM
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="duration" value="Half Day PM" checked> Half Day PM
+          </label>
+        </div>
+      </div>
+
+      <button id="btn-generate" class="btn">Generate Report</button>
+    </section>
+
+    <!-- Step 3: Review & Download -->
+    <section class="card disabled" id="step-review">
+      <h2><span class="step-num">3</span> Review &amp; Download</h2>
+
+      <div id="report-stats">
+        <span class="stat">Total: <strong id="stat-total"></strong></span>
+        <span class="stat">Unfilled: <strong id="stat-unfilled" class="text-red"></strong></span>
+        <span class="stat">Filled: <strong id="stat-filled" class="text-green"></strong></span>
+      </div>
+
+      <h3>Unfilled</h3>
+      <div class="table-wrap">
+        <table id="tbl-unfilled">
+          <thead>
+            <tr>
+              <th>Conf #</th><th>Name</th><th>Department</th>
+              <th>Duration</th><th>Reason</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h3>Filled</h3>
+      <div class="table-wrap">
+        <table id="tbl-filled">
+          <thead>
+            <tr>
+              <th>Conf #</th><th>Name</th><th>Department</th>
+              <th>Duration</th><th>Reason</th><th>Status</th><th>Substitute</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="btn-row">
+        <button id="btn-download" class="btn">Download PDF</button>
+        <button id="btn-regenerate" class="btn btn-secondary">Regenerate</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bell Schedule Parser — HLS Demo Tools</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --green: #16a34a;
+      --red: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.5; padding: 2rem 1rem;
+    }
+    .container { max-width: 860px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    header { text-align: center; margin-bottom: 2rem; }
+    header h1 { font-size: 1.75rem; }
+    .subtitle { color: var(--muted); margin-top: 0.25rem; }
+
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem;
+      transition: opacity 0.2s;
+    }
+    .card.disabled { opacity: 0.45; pointer-events: none; }
+    .card h2 {
+      font-size: 1.15rem; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-block; padding: 0.55rem 1.25rem;
+      background: var(--primary); color: #fff; border: none;
+      border-radius: var(--radius); font-size: 0.9rem;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary {
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary:hover { background: var(--primary); color: #fff; }
+    .btn-danger {
+      background: var(--red); color: #fff;
+      border: 1px solid var(--red);
+    }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-row { display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; }
+
+    input[type="text"],
+    input[type="time"],
+    select {
+      width: 100%; padding: 0.4rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 0.9rem;
+    }
+    input[type="text"]:focus,
+    input[type="time"]:focus,
+    select:focus {
+      outline: none; border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    }
+
+    .checkbox-label {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-weight: 400; font-size: 0.9rem; cursor: pointer;
+    }
+
+    /* Schedule names section */
+    .schedule-names-section { margin-bottom: 1rem; }
+    .schedule-name-row {
+      display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: flex-end;
+    }
+    .schedule-name-row input { flex: 1; }
+    .schedule-name-row .btn { padding: 0.4rem 0.7rem; font-size: 0.85rem; }
+
+    /* Tab buttons (schedule switcher) */
+    .tab-buttons {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .tab-btn {
+      padding: 0.5rem 1rem; border: 1px solid var(--border);
+      background: var(--card-bg); color: var(--text);
+      border-radius: 999px; cursor: pointer;
+      font-size: 0.9rem; transition: all 0.15s;
+    }
+    .tab-btn:hover { border-color: var(--primary); }
+    .tab-btn.active {
+      background: var(--primary); color: #fff; border-color: var(--primary);
+    }
+
+    /* Period rows */
+    .periods-container { margin-bottom: 1rem; }
+    .period-row {
+      display: grid; grid-template-columns: 1fr 100px 100px 40px;
+      gap: 0.5rem; align-items: flex-end; margin-bottom: 0.5rem;
+    }
+    .period-row input { font-size: 0.85rem; }
+    .period-row .btn { padding: 0.35rem 0.5rem; font-size: 0.8rem; min-width: auto; }
+
+    /* Split periods section */
+    .split-periods-container { margin-bottom: 1rem; }
+    .split-period-card {
+      background: #f8fafc; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem;
+    }
+    .split-period-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .split-period-header h4 { font-size: 0.95rem; }
+
+    .segment-row {
+      display: grid; grid-template-columns: 1fr 1fr 80px 80px 40px;
+      gap: 0.5rem; align-items: flex-end; margin-bottom: 0.5rem; font-size: 0.85rem;
+    }
+    .segment-row input { font-size: 0.8rem; }
+    .segment-row .btn { padding: 0.3rem 0.5rem; font-size: 0.75rem; min-width: auto; }
+
+    .class-combinations-field {
+      margin-top: 0.75rem;
+    }
+    .class-combinations-field input {
+      font-size: 0.85rem;
+    }
+
+    .no-splits-message {
+      background: #f0fdf4; color: #166534; padding: 0.75rem 1rem;
+      border-radius: var(--radius); border-left: 3px solid var(--green);
+    }
+
+    /* Validation results */
+    .validation-results {
+      background: #f8fafc; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem;
+      max-height: 300px; overflow-y: auto;
+    }
+    .validation-results.hidden { display: none; }
+
+    .validation-summary {
+      font-weight: 600; margin-bottom: 0.75rem; font-size: 0.95rem;
+    }
+    .validation-item {
+      display: flex; gap: 0.5rem; align-items: flex-start;
+      padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+    }
+    .validation-item:last-child { border-bottom: none; }
+
+    .validation-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      flex-shrink: 0; font-size: 0.75rem; font-weight: 700;
+    }
+    .validation-icon.error { background: var(--red); color: #fff; }
+    .validation-icon.warning { background: #f59e0b; color: #fff; }
+    .validation-icon.info { background: var(--primary); color: #fff; }
+
+    .validation-text { flex: 1; font-size: 0.85rem; }
+    .validation-text strong { display: block; color: var(--text); margin-bottom: 0.15rem; }
+    .validation-text span { color: var(--muted); }
+
+    /* JSON preview */
+    .json-preview {
+      background: #f1f5f9; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem;
+      margin-bottom: 1rem; max-height: 400px; overflow-y: auto;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.8rem; line-height: 1.4;
+    }
+    .json-preview code {
+      color: #1e293b;
+    }
+
+    .download-section { margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="breadcrumb"><a href="../">HLS Tools</a> / Bell Schedule Parser</nav>
+
+    <header>
+      <h1>Bell Schedule Parser</h1>
+      <p class="subtitle">Define your school's bell schedule with support for rotating blocks and lunch splits.</p>
+    </header>
+
+    <!-- Step 1: Setup -->
+    <section class="card" id="step-setup">
+      <h2><span class="step-num">1</span> Setup</h2>
+
+      <div class="field">
+        <label for="school-name">School Name</label>
+        <input type="text" id="school-name" placeholder="e.g., Highland Secondary School">
+      </div>
+
+      <div class="field">
+        <label>Schedule Type</label>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+          <label class="checkbox-label">
+            <input type="radio" name="schedule-type" value="traditional" checked> Traditional
+          </label>
+          <label class="checkbox-label">
+            <input type="radio" name="schedule-type" value="block"> Block
+          </label>
+          <label class="checkbox-label">
+            <input type="radio" name="schedule-type" value="rotating"> Rotating
+          </label>
+          <label class="checkbox-label">
+            <input type="radio" name="schedule-type" value="other"> Other
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="checkbox-label">
+          <input type="checkbox" id="lunch-splits-check">
+          This school has lunch period splits / rotations
+        </label>
+      </div>
+
+      <div class="field">
+        <label>Schedule Names</label>
+        <div class="schedule-names-section" id="schedule-names-container">
+          <div class="schedule-name-row">
+            <input type="text" class="schedule-name-input" value="Regular Day" placeholder="e.g., Regular Day">
+            <button class="btn btn-danger remove-schedule" style="display: none;">Remove</button>
+          </div>
+        </div>
+        <button id="btn-add-schedule" class="btn btn-secondary">Add Schedule</button>
+      </div>
+
+      <div class="btn-row">
+        <button id="btn-step1-continue" class="btn">Continue</button>
+      </div>
+    </section>
+
+    <!-- Step 2: Period Editor -->
+    <section class="card disabled" id="step-periods">
+      <h2><span class="step-num">2</span> Period Editor</h2>
+
+      <div class="tab-buttons" id="period-tabs"></div>
+
+      <div class="periods-container" id="periods-container">
+        <div class="period-row">
+          <input type="text" class="period-name" placeholder="Period 1">
+          <input type="time" class="period-start">
+          <input type="time" class="period-end">
+          <button class="btn btn-danger remove-period" style="padding: 0.35rem 0.5rem; min-width: auto;">x</button>
+        </div>
+      </div>
+
+      <button id="btn-add-period" class="btn btn-secondary">Add Period</button>
+
+      <div class="btn-row">
+        <button id="btn-step2-continue" class="btn">Continue</button>
+      </div>
+    </section>
+
+    <!-- Step 3: Split Periods -->
+    <section class="card disabled" id="step-splits">
+      <h2><span class="step-num">3</span> Split Periods</h2>
+
+      <div class="tab-buttons" id="split-tabs"></div>
+
+      <div class="split-periods-container" id="split-periods-container"></div>
+
+      <div class="btn-row">
+        <button id="btn-step3-continue" class="btn">Continue</button>
+      </div>
+    </section>
+
+    <!-- Step 4: Validate & Export -->
+    <section class="card disabled" id="step-export">
+      <h2><span class="step-num">4</span> Validate &amp; Export</h2>
+
+      <div class="btn-row">
+        <button id="btn-validate" class="btn">Run Validation</button>
+      </div>
+
+      <div id="validation-results" class="validation-results hidden"></div>
+
+      <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">HLS JSON Preview</h3>
+      <div class="json-preview" id="json-preview"><code>{ }</code></div>
+
+      <div class="download-section">
+        <div class="btn-row">
+          <button id="btn-download-json" class="btn">Download JSON</button>
+          <button id="btn-start-over" class="btn btn-secondary">Start Over</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
