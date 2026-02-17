@@ -366,6 +366,72 @@
         </div>
     </section>
 
+    <!-- Daily Operations Guide -->
+    <section class="py-12 md:py-16 bg-slate-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-navy text-center mb-4">
+                Daily Operations
+            </h2>
+            <p class="text-lg text-slate-text text-center max-w-3xl mx-auto mb-10">
+                To create a daily substitute coverage schedule using the Harry Llama Scheduling (HLS) system, follow these steps as outlined in the user guide:
+            </p>
+
+            <!-- Step 1 -->
+            <details class="card mb-6" open>
+                <summary class="details-summary">1. Import Daily Absences</summary>
+                <div class="details-content">
+                    <ul class="space-y-3 text-slate-text">
+                        <li><strong>Access the Module:</strong> From the dashboard, navigate to the Daily Coverage section from the main sidebar menu.</li>
+                        <li><strong>Upload the Report:</strong> Click the Import Absences button and upload your school's daily absence report in PDF, Excel, or CSV format.</li>
+                        <li><strong>Parsing:</strong> Harry Llama extracts the names of absent teachers from the document.</li>
+                        <li><strong>Process:</strong> Click Process Absences to load the data into your interactive coverage grid.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- Step 2 -->
+            <details class="card mb-6">
+                <summary class="details-summary">2. Review and Manage the Coverage Grid</summary>
+                <div class="details-content">
+                    <p class="text-slate-text mb-4">The system displays an interactive grid where classes are color-coded based on their current status:</p>
+                    <ul class="space-y-2 text-slate-text">
+                        <li><span class="inline-block w-3 h-3 rounded-full bg-red-500 mr-2 align-middle"></span><strong>Red (Unfilled):</strong> No substitute has been assigned yet.</li>
+                        <li><span class="inline-block w-3 h-3 rounded-full bg-blue-500 mr-2 align-middle"></span><strong>Blue (Co-Teacher):</strong> Harry Llama will not schedule a sub for a class that has a co-teacher.</li>
+                        <li><span class="inline-block w-3 h-3 rounded-full bg-green-500 mr-2 align-middle"></span><strong>Green (External Sub):</strong> An external substitute was assigned.</li>
+                        <li><span class="inline-block w-3 h-3 rounded-full bg-purple-500 mr-2 align-middle"></span><strong>Purple (Internal Coverage):</strong> An internal teacher was assigned to cover the class.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- Step 3 -->
+            <details class="card mb-6">
+                <summary class="details-summary">3. Assign Substitutes</summary>
+                <div class="details-content">
+                    <p class="text-slate-text">You can rely on the automated engine or manually intervene. Click on any cell in the grid to make modifications.</p>
+                </div>
+            </details>
+
+            <!-- Step 4 -->
+            <details class="card mb-6">
+                <summary class="details-summary">4. Confirm Assignments</summary>
+                <div class="details-content">
+                    <p class="text-slate-text">Confirm Assignments to finalize the schedule for the day.</p>
+                </div>
+            </details>
+
+            <!-- Step 5 -->
+            <details class="card">
+                <summary class="details-summary">5. Export and Distribute Reports</summary>
+                <div class="details-content">
+                    <ul class="space-y-3 text-slate-text">
+                        <li><strong>Coverage Grid:</strong> Generates a view of all classes and their assigned substitutes for the office.</li>
+                        <li><strong>Substitute Schedule:</strong> Generates personalized schedules for each substitute showing their specific class assignments and times.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </section>
+
     <!-- Talking Points Card -->
     <section class="py-12 md:py-16">
         <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
