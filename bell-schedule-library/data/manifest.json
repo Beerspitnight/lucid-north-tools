@@ -1,39 +1,39 @@
 [
   {
-    "id": "lincoln-hs",
-    "school_name": "Lincoln High School",
-    "location": "Springfield, IL",
+    "id": "period-ab-7period-split-lunch",
+    "school_name": "Period A/B 7-Period Split Lunch",
+    "location": "Illinois",
     "schedule_type": "Period Schedule",
     "rotation_type": "ab",
     "tags": ["7-period", "A/B rotation", "lunch splits"],
-    "file": "lincoln-hs.json"
+    "file": "period-ab-7period-split-lunch.json"
   },
   {
-    "id": "westfield-academy",
-    "school_name": "Westfield Academy",
-    "location": "Westfield, NJ",
+    "id": "block-4period-no-rotation",
+    "school_name": "Block 4-Period No Rotation",
+    "location": "New Jersey",
     "schedule_type": "Block Schedule",
     "rotation_type": "none",
     "tags": ["4-block", "no rotation"],
-    "file": "westfield-academy.json"
+    "file": "block-4period-no-rotation.json"
   },
   {
-    "id": "maple-ridge-ms",
-    "school_name": "Maple Ridge Middle School",
-    "location": "Portland, OR",
+    "id": "period-6period-no-rotation",
+    "school_name": "Period 6-Period No Rotation",
+    "location": "Oregon",
     "schedule_type": "Period Schedule",
     "rotation_type": "none",
     "tags": ["6-period", "no rotation"],
-    "file": "maple-ridge-ms.json"
+    "file": "period-6period-no-rotation.json"
   },
   {
-    "id": "cedar-valley-hs",
-    "school_name": "Cedar Valley High School",
-    "location": "Austin, TX",
+    "id": "period-abcd-8period-4day-rotation",
+    "school_name": "Period ABCD 8-Period 4-Day Rotation",
+    "location": "Texas",
     "schedule_type": "Period Schedule",
     "rotation_type": "abcd",
     "tags": ["8-period", "4-day rotation"],
-    "file": "cedar-valley-hs.json"
+    "file": "period-abcd-8period-4day-rotation.json"
   },
   {
     "id": "block-ab-lunch-advisory",

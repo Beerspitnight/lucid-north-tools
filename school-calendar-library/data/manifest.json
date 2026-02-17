@@ -1,39 +1,39 @@
 [
   {
-    "id": "lincoln-hs-2025-2026",
-    "school_name": "Lincoln High School",
+    "id": "period-ab-7period-split-lunch-2025-2026",
+    "school_name": "Period A/B 7-Period Split Lunch",
     "academic_year": "2025-2026",
-    "location": "Springfield, IL",
+    "location": "Illinois",
     "tags": ["180 days", "Illinois", "semester"],
     "event_count": 23,
-    "file": "lincoln-hs-2025-2026.json"
+    "file": "period-ab-7period-split-lunch-2025-2026.json"
   },
   {
-    "id": "westfield-academy-2025-2026",
-    "school_name": "Westfield Academy",
+    "id": "block-4period-no-rotation-2025-2026",
+    "school_name": "Block 4-Period No Rotation",
     "academic_year": "2025-2026",
-    "location": "Westfield, NJ",
+    "location": "New Jersey",
     "tags": ["180 days", "New Jersey", "trimester"],
     "event_count": 20,
-    "file": "westfield-academy-2025-2026.json"
+    "file": "block-4period-no-rotation-2025-2026.json"
   },
   {
-    "id": "maple-ridge-ms-2025-2026",
-    "school_name": "Maple Ridge Middle School",
+    "id": "period-6period-no-rotation-2025-2026",
+    "school_name": "Period 6-Period No Rotation",
     "academic_year": "2025-2026",
-    "location": "Portland, OR",
+    "location": "Oregon",
     "tags": ["175 days", "Oregon", "semester"],
     "event_count": 18,
-    "file": "maple-ridge-ms-2025-2026.json"
+    "file": "period-6period-no-rotation-2025-2026.json"
   },
   {
-    "id": "cedar-valley-hs-2025-2026",
-    "school_name": "Cedar Valley High School",
+    "id": "period-abcd-8period-4day-rotation-2025-2026",
+    "school_name": "Period ABCD 8-Period 4-Day Rotation",
     "academic_year": "2025-2026",
-    "location": "Austin, TX",
+    "location": "Texas",
     "tags": ["180 days", "Texas", "semester"],
     "event_count": 22,
-    "file": "cedar-valley-hs-2025-2026.json"
+    "file": "period-abcd-8period-4day-rotation-2025-2026.json"
   },
   {
     "id": "closing-calendar-sep4-jun23",

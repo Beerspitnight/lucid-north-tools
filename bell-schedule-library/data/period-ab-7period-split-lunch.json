@@ -1,0 +1,30 @@
+{
+  "school_name": "Period A/B 7-Period Split Lunch",
+  "location": "Illinois",
+  "schedule_type": "Period Schedule",
+  "rotation_type": "ab",
+  "schedules": {
+    "Regular Day": [
+      { "period_name": "Period 1", "start_time": "07:45", "end_time": "08:30" },
+      { "period_name": "Period 2", "start_time": "08:34", "end_time": "09:19" },
+      { "period_name": "Period 3", "start_time": "09:23", "end_time": "10:08" },
+      { "period_name": "Lunch A", "start_time": "10:08", "end_time": "10:38" },
+      { "period_name": "Period 4", "start_time": "10:42", "end_time": "11:27" },
+      { "period_name": "Period 5", "start_time": "11:31", "end_time": "12:16" },
+      { "period_name": "Lunch B", "start_time": "12:16", "end_time": "12:46" },
+      { "period_name": "Period 6", "start_time": "12:50", "end_time": "13:35" },
+      { "period_name": "Period 7", "start_time": "13:39", "end_time": "14:30" }
+    ],
+    "Early Release": [
+      { "period_name": "Period 1", "start_time": "07:45", "end_time": "08:25" },
+      { "period_name": "Period 2", "start_time": "08:29", "end_time": "09:09" },
+      { "period_name": "Period 3", "start_time": "09:13", "end_time": "09:53" },
+      { "period_name": "Lunch A", "start_time": "09:53", "end_time": "10:18" },
+      { "period_name": "Period 4", "start_time": "10:22", "end_time": "11:02" },
+      { "period_name": "Period 5", "start_time": "11:06", "end_time": "11:46" },
+      { "period_name": "Lunch B", "start_time": "11:46", "end_time": "12:11" },
+      { "period_name": "Period 6", "start_time": "12:15", "end_time": "12:55" },
+      { "period_name": "Period 7", "start_time": "12:59", "end_time": "13:30" }
+    ]
+  }
+}
