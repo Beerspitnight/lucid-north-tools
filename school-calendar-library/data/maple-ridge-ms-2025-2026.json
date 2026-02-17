@@ -1,0 +1,25 @@
+{
+  "school_name": "Maple Ridge Middle School",
+  "academic_year": "2025-2026",
+  "location": "Portland, OR",
+  "calendar": [
+    { "date": "2025-09-01", "classification": "Holiday", "event_name": "Labor Day" },
+    { "date": "2025-10-13", "classification": "Holiday", "event_name": "Columbus Day" },
+    { "date": "2025-11-11", "classification": "Holiday", "event_name": "Veterans Day" },
+    { "date": "2025-11-26", "classification": "Holiday", "event_name": "Thanksgiving" },
+    { "date": "2025-11-27", "classification": "Holiday", "event_name": "Thanksgiving Break" },
+    { "date": "2025-12-22", "classification": "Holiday", "event_name": "Winter Break" },
+    { "date": "2025-12-23", "classification": "Holiday", "event_name": "Winter Break" },
+    { "date": "2025-12-24", "classification": "Holiday", "event_name": "Winter Break" },
+    { "date": "2025-12-25", "classification": "Holiday", "event_name": "Winter Break" },
+    { "date": "2026-01-01", "classification": "Holiday", "event_name": "New Year's Day" },
+    { "date": "2026-01-19", "classification": "Holiday", "event_name": "MLK Day" },
+    { "date": "2026-02-16", "classification": "Holiday", "event_name": "Presidents Day" },
+    { "date": "2026-03-16", "classification": "PD", "event_name": "Staff Development" },
+    { "date": "2026-03-30", "classification": "Holiday", "event_name": "Spring Break" },
+    { "date": "2026-03-31", "classification": "Holiday", "event_name": "Spring Break" },
+    { "date": "2026-04-01", "classification": "Holiday", "event_name": "Spring Break" },
+    { "date": "2026-04-02", "classification": "Holiday", "event_name": "Spring Break" },
+    { "date": "2026-05-25", "classification": "Holiday", "event_name": "Memorial Day" }
+  ]
+}

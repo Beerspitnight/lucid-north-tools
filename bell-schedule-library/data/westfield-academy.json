@@ -1,0 +1,35 @@
+{
+  "school_name": "Westfield Academy",
+  "location": "Westfield, NJ",
+  "schedule_type": "Block Schedule",
+  "rotation_type": "none",
+  "schedules": {
+    "Regular Day": [
+      {
+        "period_name": "Block 1",
+        "start_time": "08:00",
+        "end_time": "09:25"
+      },
+      {
+        "period_name": "Block 2",
+        "start_time": "09:30",
+        "end_time": "10:55"
+      },
+      {
+        "period_name": "Lunch",
+        "start_time": "10:55",
+        "end_time": "11:35"
+      },
+      {
+        "period_name": "Block 3",
+        "start_time": "11:40",
+        "end_time": "13:05"
+      },
+      {
+        "period_name": "Block 4",
+        "start_time": "13:10",
+        "end_time": "14:35"
+      }
+    ]
+  }
+}

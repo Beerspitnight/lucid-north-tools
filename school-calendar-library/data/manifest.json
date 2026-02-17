@@ -1,0 +1,65 @@
+[
+  {
+    "id": "lincoln-hs-2025-2026",
+    "school_name": "Lincoln High School",
+    "academic_year": "2025-2026",
+    "location": "Springfield, IL",
+    "tags": ["180 days", "Illinois", "semester"],
+    "event_count": 23,
+    "file": "lincoln-hs-2025-2026.json"
+  },
+  {
+    "id": "westfield-academy-2025-2026",
+    "school_name": "Westfield Academy",
+    "academic_year": "2025-2026",
+    "location": "Westfield, NJ",
+    "tags": ["180 days", "New Jersey", "trimester"],
+    "event_count": 20,
+    "file": "westfield-academy-2025-2026.json"
+  },
+  {
+    "id": "maple-ridge-ms-2025-2026",
+    "school_name": "Maple Ridge Middle School",
+    "academic_year": "2025-2026",
+    "location": "Portland, OR",
+    "tags": ["175 days", "Oregon", "semester"],
+    "event_count": 18,
+    "file": "maple-ridge-ms-2025-2026.json"
+  },
+  {
+    "id": "cedar-valley-hs-2025-2026",
+    "school_name": "Cedar Valley High School",
+    "academic_year": "2025-2026",
+    "location": "Austin, TX",
+    "tags": ["180 days", "Texas", "semester"],
+    "event_count": 22,
+    "file": "cedar-valley-hs-2025-2026.json"
+  },
+  {
+    "id": "hillcrest-academy-2025-2026",
+    "school_name": "Hillcrest Academy",
+    "academic_year": "2025-2026",
+    "location": "Hamilton, NJ",
+    "tags": ["180 days", "New Jersey", "semester"],
+    "event_count": 32,
+    "file": "hillcrest-academy-2025-2026.json"
+  },
+  {
+    "id": "riverside-hs-2025-2026",
+    "school_name": "Riverside High School",
+    "academic_year": "2025-2026",
+    "location": "Morristown, NJ",
+    "tags": ["180 days", "New Jersey", "semester"],
+    "event_count": 49,
+    "file": "riverside-hs-2025-2026.json"
+  },
+  {
+    "id": "parkview-hs-2025-2026",
+    "school_name": "Parkview High School",
+    "academic_year": "2025-2026",
+    "location": "Montclair, NJ",
+    "tags": ["180 days", "New Jersey", "semester"],
+    "event_count": 44,
+    "file": "parkview-hs-2025-2026.json"
+  }
+]

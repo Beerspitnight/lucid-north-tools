@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse and download pre-made bell schedules for HLS sandbox onboarding.">
+    <title>Bell Schedule Library - Lucid North</title>
+    <link rel="icon" href="../images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1F2437',
+                        'brand-blue': '#01B7D4',
+                        'brand-orange': '#E16A1E',
+                        'hl-purple': '#4A3F7A',
+                        'hl-orange': '#EF8A30',
+                        'slate-text': '#334155'
+                    },
+                    fontFamily: {
+                        'sans': ['Sora', 'Helvetica Neue', 'system-ui', 'sans-serif'],
+                        'heading': ['Helvetica Neue', 'Sora', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Sora', 'Helvetica Neue', system-ui, sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Helvetica Neue', 'Sora', system-ui, sans-serif;
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #F8FAFC;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 1rem;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in-up {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .btn-primary {
+            background-color: #E16A1E;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #c85a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(225, 106, 30, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #01B7D4;
+            color: #01B7D4;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #01B7D4;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(1, 183, 212, 0.3);
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background-color: #F0F9FB;
+            border-radius: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .details-summary {
+            color: #1F2437;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .details-summary:hover {
+            background-color: #F0F9FB;
+        }
+
+        .details-summary::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%231F2437" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] .details-summary::before {
+            transform: rotate(90deg);
+        }
+
+        .details-content {
+            padding: 0 1rem 1rem 1rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #94A3B8;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+
+        .breadcrumb a {
+            color: #01B7D4;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .filter-pill {
+            padding: 0.5rem 1rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            background-color: white;
+            color: #334155;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .filter-pill:hover {
+            border-color: #01B7D4;
+        }
+
+        .filter-pill.active {
+            background-color: #EF8A30;
+            color: white;
+            border-color: #EF8A30;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 999px;
+            background-color: #F1F5F9;
+            color: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="/" class="flex-shrink-0">
+                    <img src="../images/ln_logo.png" alt="Lucid North" class="h-10 w-auto">
+                </a>
+
+                <!-- Navigation Links -->
+                <div class="flex items-center space-x-8">
+                    <a href="../tools.html" class="text-slate-700 hover:text-navy font-medium cursor-pointer transition">Tools</a>
+                    <a href="../sandbox.html" class="text-slate-700 hover:text-navy font-medium cursor-pointer transition">Sandbox</a>
+                    <a href="mailto:Brian.McManus1977@gmail.com" class="text-slate-700 hover:text-navy font-medium cursor-pointer transition">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="breadcrumb">
+            <a href="../tools.html">Tools</a> / Bell Schedule Library
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="bg-slate-100 py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-navy mb-4">
+                Bell Schedule Library
+            </h1>
+            <p class="text-lg md:text-xl text-slate-text max-w-2xl mx-auto">
+                Browse and download pre-made bell schedules for HLS sandbox onboarding.
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter and Cards Section -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Filter Bar -->
+            <div class="mb-8">
+                <div id="filter-bar" class="flex flex-wrap gap-2">
+                    <!-- JS will populate this -->
+                </div>
+            </div>
+
+            <!-- Card Grid -->
+            <div id="card-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- JS will populate this -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-bold mb-2">
+                        Lucid North LLC
+                    </h3>
+                    <p class="text-slate-300 text-sm">
+                        Smarter Solutions. Smarter Schools.
+                    </p>
+                </div>
+
+                <p class="text-slate-300 text-sm">
+                    © 2026 <a href="https://lucid-north.com" class="text-brand-blue hover:underline cursor-pointer transition">Lucid North</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

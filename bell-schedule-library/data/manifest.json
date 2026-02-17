@@ -1,0 +1,65 @@
+[
+  {
+    "id": "lincoln-hs",
+    "school_name": "Lincoln High School",
+    "location": "Springfield, IL",
+    "schedule_type": "Period Schedule",
+    "rotation_type": "ab",
+    "tags": ["7-period", "A/B rotation", "lunch splits"],
+    "file": "lincoln-hs.json"
+  },
+  {
+    "id": "westfield-academy",
+    "school_name": "Westfield Academy",
+    "location": "Westfield, NJ",
+    "schedule_type": "Block Schedule",
+    "rotation_type": "none",
+    "tags": ["4-block", "no rotation"],
+    "file": "westfield-academy.json"
+  },
+  {
+    "id": "maple-ridge-ms",
+    "school_name": "Maple Ridge Middle School",
+    "location": "Portland, OR",
+    "schedule_type": "Period Schedule",
+    "rotation_type": "none",
+    "tags": ["6-period", "no rotation"],
+    "file": "maple-ridge-ms.json"
+  },
+  {
+    "id": "cedar-valley-hs",
+    "school_name": "Cedar Valley High School",
+    "location": "Austin, TX",
+    "schedule_type": "Period Schedule",
+    "rotation_type": "abcd",
+    "tags": ["8-period", "4-day rotation"],
+    "file": "cedar-valley-hs.json"
+  },
+  {
+    "id": "hillcrest-academy",
+    "school_name": "Hillcrest Academy",
+    "location": "Hamilton, NJ",
+    "schedule_type": "Block Schedule",
+    "rotation_type": "ab",
+    "tags": ["6-period", "A/B rotation", "advisory"],
+    "file": "hillcrest-academy.json"
+  },
+  {
+    "id": "riverside-hs",
+    "school_name": "Riverside High School",
+    "location": "Morristown, NJ",
+    "schedule_type": "Block Schedule",
+    "rotation_type": "ab",
+    "tags": ["block", "A/B rotation", "lunch splits", "homebase"],
+    "file": "riverside-hs.json"
+  },
+  {
+    "id": "parkview-hs",
+    "school_name": "Parkview High School",
+    "location": "Montclair, NJ",
+    "schedule_type": "Block Schedule",
+    "rotation_type": "none",
+    "tags": ["block", "no rotation", "split lunch", "delayed opening", "multiple bells"],
+    "file": "parkview-hs.json"
+  }
+]

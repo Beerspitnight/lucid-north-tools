@@ -1,0 +1,104 @@
+{
+  "school_name": "Parkview High School",
+  "location": "Montclair, NJ",
+  "schedule_type": "Block Schedule",
+  "rotation_type": "none",
+  "schedules": {
+    "Normal Bell": [
+      {
+        "period_name": "1",
+        "start_time": "07:10",
+        "end_time": "08:30"
+      },
+      {
+        "period_name": "2",
+        "start_time": "08:35",
+        "end_time": "09:55"
+      },
+      {
+        "period_name": "3A",
+        "start_time": "10:45",
+        "end_time": "12:05"
+      },
+      {
+        "period_name": "3B",
+        "start_time": "10:10",
+        "end_time": "12:05"
+      },
+      {
+        "period_name": "3C",
+        "start_time": "10:10",
+        "end_time": "11:30"
+      },
+      {
+        "period_name": "4",
+        "start_time": "12:10",
+        "end_time": "13:30"
+      }
+    ],
+    "Grade Level HR": [
+      {
+        "period_name": "1",
+        "start_time": "07:10",
+        "end_time": "08:25"
+      },
+      {
+        "period_name": "HR",
+        "start_time": "08:30",
+        "end_time": "08:40"
+      },
+      {
+        "period_name": "2",
+        "start_time": "08:45",
+        "end_time": "10:05"
+      },
+      {
+        "period_name": "3A",
+        "start_time": "10:10",
+        "end_time": "10:40"
+      },
+      {
+        "period_name": "3B",
+        "start_time": "10:45",
+        "end_time": "12:05"
+      },
+      {
+        "period_name": "3C",
+        "start_time": "10:10",
+        "end_time": "12:05"
+      },
+      {
+        "period_name": "4",
+        "start_time": "12:10",
+        "end_time": "13:30"
+      }
+    ],
+    "120 Minute Delayed Opening": [
+      {
+        "period_name": "1",
+        "start_time": "09:10",
+        "end_time": "10:00"
+      },
+      {
+        "period_name": "2",
+        "start_time": "10:05",
+        "end_time": "10:55"
+      },
+      {
+        "period_name": "3A",
+        "start_time": "11:45",
+        "end_time": "12:35"
+      },
+      {
+        "period_name": "3BC",
+        "start_time": "11:10",
+        "end_time": "12:00"
+      },
+      {
+        "period_name": "4",
+        "start_time": "12:40",
+        "end_time": "13:30"
+      }
+    ]
+  }
+}
