@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Onboarding Tools — Master Schedule Parser and Bell Schedule & Calendar Parser for Harry Llama setup.">
+    <meta name="description" content="Sandbox Tools — Schedule generators, bell schedule and calendar libraries for Harry Llama demos and onboarding.">
     <title>Tools - Lucid North</title>
     <link rel="icon" href="images/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -274,8 +274,206 @@
         </div>
     </section>
 
-    <!-- Onboarding Tools Section -->
+    <!-- Sandbox Tools Section -->
     <section class="py-12 md:py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-2">
+                    Sandbox Tools
+                </h2>
+                <p class="text-lg text-slate-text">
+                    Generate test data for live demonstrations
+                </p>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Card 1: Schedule Generator -->
+                <div class="card border-l-4 border-hl-orange p-8">
+                    <!-- Icon and Title -->
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="icon-container flex-shrink-0">
+                            <svg class="w-6 h-6 text-hl-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy">
+                                Schedule Generator
+                            </h3>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-slate-text mb-4 leading-relaxed">
+                        Create realistic test schedules for sandbox demonstrations.
+                    </p>
+
+                    <!-- Features -->
+                    <ul class="text-sm text-slate-600 mb-6 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">•</span>
+                            <span>20 / 40 / 80 / 120 teacher rosters</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">•</span>
+                            <span>Deterministic output for consistent demos</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">•</span>
+                            <span>No Rotation, A/B Rotation, and A/B Block (6-Period) formats</span>
+                        </li>
+                    </ul>
+
+                    <!-- CTA Button -->
+                    <a href="/schedule-generator/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
+                        Generate Schedule
+                    </a>
+                </div>
+
+                <!-- Card 2: Absence Report Generator -->
+                <div class="card border-l-4 border-hl-orange p-8">
+                    <!-- Icon and Title -->
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="icon-container flex-shrink-0">
+                            <svg class="w-6 h-6 text-hl-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="12" y1="11" x2="12" y2="17"></line>
+                                <line x1="9" y1="14" x2="15" y2="14"></line>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy">
+                                Absence Report Generator
+                            </h3>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-slate-text mb-4 leading-relaxed">
+                        Generate realistic Aesop-style absence reports for testing.
+                    </p>
+
+                    <!-- Features -->
+                    <ul class="text-sm text-slate-600 mb-6 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">•</span>
+                            <span>Configurable absence count & substitutes</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">•</span>
+                            <span>Full day / half day duration types</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">•</span>
+                            <span>PDF download matching real report layout</span>
+                        </li>
+                    </ul>
+
+                    <!-- CTA Button -->
+                    <a href="/absence-reports/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
+                        Generate Report
+                    </a>
+                </div>
+
+                <!-- Card 3: Bell Schedule Library -->
+                <div class="card border-l-4 border-hl-orange p-8">
+                    <!-- Icon and Title -->
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="icon-container flex-shrink-0">
+                            <svg class="w-6 h-6 text-hl-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy">
+                                Bell Schedule Library
+                            </h3>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-slate-text mb-4 leading-relaxed">
+                        Browse and download pre-made bell schedules for sandbox onboarding.
+                    </p>
+
+                    <!-- Features -->
+                    <ul class="text-sm text-slate-600 mb-6 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
+                            <span>Real school schedule examples</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
+                            <span>Expandable preview with period tables</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
+                            <span>HLS-compatible JSON download</span>
+                        </li>
+                    </ul>
+
+                    <!-- CTA Button -->
+                    <a href="/bell-schedule-library/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
+                        Browse Schedules
+                    </a>
+                </div>
+
+                <!-- Card 4: School Calendar Library -->
+                <div class="card border-l-4 border-hl-orange p-8">
+                    <!-- Icon and Title -->
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="icon-container flex-shrink-0">
+                            <svg class="w-6 h-6 text-hl-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy">
+                                School Calendar Library
+                            </h3>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-slate-text mb-4 leading-relaxed">
+                        Browse and download pre-made closing calendars for sandbox onboarding.
+                    </p>
+
+                    <!-- Features -->
+                    <ul class="text-sm text-slate-600 mb-6 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
+                            <span>Real school calendar examples</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
+                            <span>Color-coded event preview</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
+                            <span>HLS-compatible JSON download</span>
+                        </li>
+                    </ul>
+
+                    <!-- CTA Button -->
+                    <a href="/school-calendar-library/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
+                        Browse Calendars
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Onboarding Tools Section -->
+    <section class="py-12 md:py-16 bg-slate-100">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
             <div class="mb-12">
@@ -289,7 +487,7 @@
 
             <!-- Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Card 1: Master Schedule Parser -->
+                <!-- Card 5: Master Schedule Parser -->
                 <div class="card border-l-4 border-brand-blue p-8">
                     <!-- Icon and Title -->
                     <div class="flex items-start gap-4 mb-6">
@@ -340,7 +538,7 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Bell Schedule & Calendar Parser -->
+                <!-- Card 6: Bell Schedule & Calendar Parser -->
                 <div class="card border-l-4 border-brand-blue p-8">
                     <!-- Icon and Title -->
                     <div class="flex items-start gap-4 mb-6">
@@ -382,204 +580,6 @@
                     <!-- CTA Button -->
                     <a href="/bell-schedule-parser/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
                         Open Parser
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sandbox Tools Section -->
-    <section class="py-12 md:py-16 bg-slate-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-2">
-                    Sandbox Tools
-                </h2>
-                <p class="text-lg text-slate-text">
-                    Generate test data for live demonstrations
-                </p>
-            </div>
-
-            <!-- Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Card 3: Schedule Generator -->
-                <div class="card border-l-4 border-hl-orange p-8">
-                    <!-- Icon and Title -->
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="icon-container flex-shrink-0">
-                            <svg class="w-6 h-6 text-hl-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-navy">
-                                Schedule Generator
-                            </h3>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <p class="text-slate-text mb-4 leading-relaxed">
-                        Create realistic test schedules for sandbox demonstrations.
-                    </p>
-
-                    <!-- Features -->
-                    <ul class="text-sm text-slate-600 mb-6 space-y-2">
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">•</span>
-                            <span>20 / 40 / 80 / 120 teacher rosters</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">•</span>
-                            <span>Deterministic output for consistent demos</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">•</span>
-                            <span>No Rotation, A/B Rotation, and A/B Block (6-Period) formats</span>
-                        </li>
-                    </ul>
-
-                    <!-- CTA Button -->
-                    <a href="/schedule-generator/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
-                        Generate Schedule
-                    </a>
-                </div>
-
-                <!-- Card 4: Absence Report Generator -->
-                <div class="card border-l-4 border-hl-orange p-8">
-                    <!-- Icon and Title -->
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="icon-container flex-shrink-0">
-                            <svg class="w-6 h-6 text-hl-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="12" y1="11" x2="12" y2="17"></line>
-                                <line x1="9" y1="14" x2="15" y2="14"></line>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-navy">
-                                Absence Report Generator
-                            </h3>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <p class="text-slate-text mb-4 leading-relaxed">
-                        Generate realistic Aesop-style absence reports for testing.
-                    </p>
-
-                    <!-- Features -->
-                    <ul class="text-sm text-slate-600 mb-6 space-y-2">
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">•</span>
-                            <span>Configurable absence count & substitutes</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">•</span>
-                            <span>Full day / half day duration types</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">•</span>
-                            <span>PDF download matching real report layout</span>
-                        </li>
-                    </ul>
-
-                    <!-- CTA Button -->
-                    <a href="/absence-reports/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
-                        Generate Report
-                    </a>
-                </div>
-
-                <!-- Card 5: Bell Schedule Library -->
-                <div class="card border-l-4 border-hl-orange p-8">
-                    <!-- Icon and Title -->
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="icon-container flex-shrink-0">
-                            <svg class="w-6 h-6 text-hl-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-navy">
-                                Bell Schedule Library
-                            </h3>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <p class="text-slate-text mb-4 leading-relaxed">
-                        Browse and download pre-made bell schedules for sandbox onboarding.
-                    </p>
-
-                    <!-- Features -->
-                    <ul class="text-sm text-slate-600 mb-6 space-y-2">
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
-                            <span>Real school schedule examples</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
-                            <span>Expandable preview with period tables</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
-                            <span>HLS-compatible JSON download</span>
-                        </li>
-                    </ul>
-
-                    <!-- CTA Button -->
-                    <a href="/bell-schedule-library/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
-                        Browse Schedules
-                    </a>
-                </div>
-
-                <!-- Card 6: School Calendar Library -->
-                <div class="card border-l-4 border-hl-orange p-8">
-                    <!-- Icon and Title -->
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="icon-container flex-shrink-0">
-                            <svg class="w-6 h-6 text-hl-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-navy">
-                                School Calendar Library
-                            </h3>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <p class="text-slate-text mb-4 leading-relaxed">
-                        Browse and download pre-made closing calendars for sandbox onboarding.
-                    </p>
-
-                    <!-- Features -->
-                    <ul class="text-sm text-slate-600 mb-6 space-y-2">
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
-                            <span>Real school calendar examples</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
-                            <span>Color-coded event preview</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-hl-orange font-bold mt-0.5">&bull;</span>
-                            <span>HLS-compatible JSON download</span>
-                        </li>
-                    </ul>
-
-                    <!-- CTA Button -->
-                    <a href="/school-calendar-library/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
-                        Browse Calendars
                     </a>
                 </div>
             </div>
