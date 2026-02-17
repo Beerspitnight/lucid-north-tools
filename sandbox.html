@@ -298,48 +298,69 @@
         </div>
     </section>
 
-    <!-- Demo Flow Guide -->
+    <!-- Onboarding Wizard Guide -->
     <section class="py-12 md:py-16">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-navy text-center mb-8">
-                Demo Flow Guide
+            <h2 class="text-3xl md:text-4xl font-bold text-navy text-center mb-4">
+                From Spreadsheets to Automated Coverage in 7 Simple Steps
             </h2>
+            <p class="text-lg text-slate-text text-center max-w-3xl mx-auto mb-10">
+                Harry Llama Scheduling's (HLS) 7-step Onboarding Wizard guides you through the process of setting up your school's unique schedule, typically completed in under a half hour.
+            </p>
 
-            <!-- Phase 1: Onboarding -->
+            <!-- Step 1 -->
             <details class="card mb-6" open>
-                <summary class="details-summary">Phase 1: Onboarding</summary>
+                <summary class="details-summary">1. Basic School Setup</summary>
                 <div class="details-content">
-                    <ol class="step-list space-y-4">
-                        <li>Select rotation type (A/B Day, 4-Day, etc.)</li>
-                        <li>Upload bell schedule — download a sample from the <a href="bell-schedule-library/">Bell Schedule Library</a> or create your own with the <a href="tools.html">Bell Schedule Parser</a></li>
-                        <li>Upload master schedule — use <a href="tools.html">Master Schedule Parser from Tools page</a></li>
-                        <li>Review teacher schedules and verify period assignments</li>
-                        <li>Configure period types and coverage preferences</li>
-                        <li>Add substitute pool</li>
-                        <li>Upload closing calendar — download a sample from the <a href="school-calendar-library/">School Calendar Library</a> or create your own with the <a href="tools.html">Calendar Parser</a></li>
-                    </ol>
+                    <p>Begin by entering your school's name and defining your academic year dates. You'll select your specific rotation type—whether you use a standard weekly schedule, an A/B day pattern, a 6-day rotation cycle, or no rotation.</p>
                 </div>
             </details>
 
-            <!-- Phase 2: Daily Operations -->
+            <!-- Step 2 -->
             <details class="card mb-6">
-                <summary class="details-summary">Phase 2: Daily Operations</summary>
+                <summary class="details-summary">2. Define Your Period Types</summary>
                 <div class="details-content">
-                    <ol class="step-list space-y-4">
-                        <li>Create teacher absences for today</li>
-                        <li>Run "Generate Coverage Plan"</li>
-                        <li>Review the coverage grid — note tiered assignments and fill rate</li>
-                        <li>Manually assign any remaining unfilled slots</li>
-                        <li>Confirm the plan</li>
-                    </ol>
+                    <p>Tell the system how your school day is structured. Use our Quick Setup to add standard blocks like "Class," "Prep," "Duty," and "Lunch." You control the automation by marking which period types (like Advisory or regular classes) require coverage when a teacher is out.</p>
                 </div>
             </details>
 
-            <!-- Phase 3: Reset -->
-            <details class="card">
-                <summary class="details-summary">Phase 3: Reset</summary>
+            <!-- Step 3 -->
+            <details class="card mb-6">
+                <summary class="details-summary">3. Bell Schedule Upload</summary>
                 <div class="details-content">
-                    <p>When demo data gets stale, request a sandbox reset to start fresh. Contact the dev team.</p>
+                    <p>Simply upload a PDF of your bell schedule. Harry Llama automatically extracts period names and start/end times. You can review the extracted templates (like "Regular Day" or "Early Release") and make manual corrections if needed to ensure every minute is accounted for.</p>
+                </div>
+            </details>
+
+            <!-- Step 4 -->
+            <details class="card mb-6">
+                <summary class="details-summary">4. Master Schedule & Co-Teaching Detection</summary>
+                <div class="details-content">
+                    <p>Upload your teacher roster and class assignments via CSV. Harry Llama automatically detects co-teaching relationships—if two teachers are assigned to the same room, the system remembers it to optimize coverage logic later.</p>
+                </div>
+            </details>
+
+            <!-- Step 5 -->
+            <details class="card mb-6">
+                <summary class="details-summary">5. Indicate & Synchronize Teacher Availability</summary>
+                <div class="details-content">
+                    <p>Indicate teachers who are willing to cover classes during their non-teaching periods. The system also normalizes schedules across your rotation days. You'll review teacher contact information to ensure automated coverage notifications reach the right inbox.</p>
+                </div>
+            </details>
+
+            <!-- Step 6 -->
+            <details class="card mb-6">
+                <summary class="details-summary">6. Academic Calendar Integration</summary>
+                <div class="details-content">
+                    <p>Upload your school's closing calendar PDF. The system identifies holidays, professional development days, and half-days to prevent the system from requesting coverage on days when school is closed or the schedule is modified.</p>
+                </div>
+            </details>
+
+            <!-- Step 7 -->
+            <details class="card">
+                <summary class="details-summary">7. Customize Your Sub Rules</summary>
+                <div class="details-content">
+                    <p>Set the "guardrails" for your school. Define the maximum number of periods a substitute can cover in a day and when subs need to have off.</p>
                 </div>
             </details>
         </div>
