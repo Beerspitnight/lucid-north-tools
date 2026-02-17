@@ -1,7 +1,7 @@
 {
-  "school_name": "Hillcrest Academy",
+  "school_name": "Closing Calendar (Sep 4 - Jun 23)",
   "academic_year": "2025-2026",
-  "location": "Hamilton, NJ",
+  "location": "New Jersey",
   "calendar": [
     { "date": "2025-09-01", "classification": "Holiday", "event_name": "Labor Day" },
     { "date": "2025-09-02", "classification": "PD", "event_name": "Professional Development Day" },

@@ -36,30 +36,30 @@
     "file": "cedar-valley-hs.json"
   },
   {
-    "id": "hillcrest-academy",
-    "school_name": "Hillcrest Academy",
-    "location": "Hamilton, NJ",
+    "id": "block-ab-lunch-advisory",
+    "school_name": "Block A/B with Lunch & Advisory",
+    "location": "New Jersey",
     "schedule_type": "Block Schedule",
     "rotation_type": "ab",
     "tags": ["6-period", "A/B rotation", "advisory"],
-    "file": "hillcrest-academy.json"
+    "file": "block-ab-lunch-advisory.json"
   },
   {
-    "id": "riverside-hs",
-    "school_name": "Riverside High School",
-    "location": "Morristown, NJ",
+    "id": "block-ab-lunch-split",
+    "school_name": "Block A/B with Split Lunch",
+    "location": "New Jersey",
     "schedule_type": "Block Schedule",
     "rotation_type": "ab",
     "tags": ["block", "A/B rotation", "lunch splits", "homebase"],
-    "file": "riverside-hs.json"
+    "file": "block-ab-lunch-split.json"
   },
   {
-    "id": "parkview-hs",
-    "school_name": "Parkview High School",
-    "location": "Montclair, NJ",
+    "id": "block-no-rotation-split-lunch",
+    "school_name": "Block - No Rotation, Split Lunch",
+    "location": "New Jersey",
     "schedule_type": "Block Schedule",
     "rotation_type": "none",
     "tags": ["block", "no rotation", "split lunch", "delayed opening", "multiple bells"],
-    "file": "parkview-hs.json"
+    "file": "block-no-rotation-split-lunch.json"
   }
 ]

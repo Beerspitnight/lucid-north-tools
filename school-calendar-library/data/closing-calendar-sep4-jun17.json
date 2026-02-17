@@ -1,7 +1,7 @@
 {
-  "school_name": "Riverside High School",
+  "school_name": "Closing Calendar (Sep 4 - Jun 17)",
   "academic_year": "2025-2026",
-  "location": "Morristown, NJ",
+  "location": "New Jersey",
   "calendar": [
     { "date": "2025-07-03", "classification": "Holiday", "event_name": "Independence Day Holiday" },
     { "date": "2025-07-04", "classification": "Holiday", "event_name": "Independence Day Holiday" },

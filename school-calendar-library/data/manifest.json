@@ -36,30 +36,30 @@
     "file": "cedar-valley-hs-2025-2026.json"
   },
   {
-    "id": "hillcrest-academy-2025-2026",
-    "school_name": "Hillcrest Academy",
+    "id": "closing-calendar-sep4-jun23",
+    "school_name": "Closing Calendar (Sep 4 - Jun 23)",
     "academic_year": "2025-2026",
-    "location": "Hamilton, NJ",
+    "location": "New Jersey",
     "tags": ["180 days", "New Jersey", "semester"],
     "event_count": 32,
-    "file": "hillcrest-academy-2025-2026.json"
+    "file": "closing-calendar-sep4-jun23.json"
   },
   {
-    "id": "riverside-hs-2025-2026",
-    "school_name": "Riverside High School",
+    "id": "closing-calendar-sep4-jun17",
+    "school_name": "Closing Calendar (Sep 4 - Jun 17)",
     "academic_year": "2025-2026",
-    "location": "Morristown, NJ",
+    "location": "New Jersey",
     "tags": ["180 days", "New Jersey", "semester"],
     "event_count": 49,
-    "file": "riverside-hs-2025-2026.json"
+    "file": "closing-calendar-sep4-jun17.json"
   },
   {
-    "id": "parkview-hs-2025-2026",
-    "school_name": "Parkview High School",
+    "id": "closing-calendar-sep4-jun26",
+    "school_name": "Closing Calendar (Sep 4 - Jun 26)",
     "academic_year": "2025-2026",
-    "location": "Montclair, NJ",
+    "location": "New Jersey",
     "tags": ["180 days", "New Jersey", "semester"],
     "event_count": 44,
-    "file": "parkview-hs-2025-2026.json"
+    "file": "closing-calendar-sep4-jun26.json"
   }
 ]
