@@ -179,22 +179,24 @@ function generateConfDatetime(reportDate) {
   return { confDate: dateStr, confTime: timeStr };
 }
 
-function generateAbsences(teachers, numAbsences, numSubs, durationTypes, reportDate) {
-  if (!durationTypes || durationTypes.length === 0) {
-    durationTypes = Object.keys(DURATION_MAP);
-  }
-
-  const durations = durationTypes
-    .filter(dt => DURATION_MAP[dt])
-    .map(dt => [dt, DURATION_MAP[dt]]);
-
-  if (durations.length === 0) {
-    for (const [k, v] of Object.entries(DURATION_MAP)) {
-      durations.push([k, v]);
-    }
-  }
-
+function generateAbsences(teachers, numAbsences, numSubs, halfAmCount, halfPmCount, reportDate) {
   numAbsences = Math.min(numAbsences, teachers.length);
+
+  // Clamp half-day counts so they don't exceed total absences
+  const totalHalf = Math.min(halfAmCount + halfPmCount, numAbsences);
+  const clampedAm = Math.min(halfAmCount, totalHalf);
+  const clampedPm = Math.min(halfPmCount, totalHalf - clampedAm);
+  const fullDayCount = numAbsences - clampedAm - clampedPm;
+
+  // Build the duration list with exact counts
+  const durationSlots = [];
+  for (let i = 0; i < fullDayCount; i++) durationSlots.push(["Full Day", DURATION_MAP["Full Day"]]);
+  for (let i = 0; i < clampedAm; i++) durationSlots.push(["Half Day AM", DURATION_MAP["Half Day AM"]]);
+  for (let i = 0; i < clampedPm; i++) durationSlots.push(["Half Day PM", DURATION_MAP["Half Day PM"]]);
+
+  // Shuffle so half-days are distributed randomly among absences
+  const shuffledDurations = shuffle(durationSlots);
+
   const absentTeachers = sample(teachers, numAbsences);
 
   const numFilled = Math.min(numSubs, numAbsences);
@@ -207,10 +209,11 @@ function generateAbsences(teachers, numAbsences, numSubs, durationTypes, reportD
   const availableSubs = sample(SUBS, Math.min(numFilled, SUBS.length));
 
   const absences = [];
+  let durIdx = 0;
 
   for (const teacher of unfilledTeachers) {
     const { confDate, confTime } = generateConfDatetime(reportDate);
-    const dur = choice(durations);
+    const dur = shuffledDurations[durIdx++];
     absences.push({
       type: "unfilled",
       conf_num: generateConfNumber(),
@@ -230,7 +233,7 @@ function generateAbsences(teachers, numAbsences, numSubs, durationTypes, reportD
   for (let i = 0; i < filledTeachers.length; i++) {
     const teacher = filledTeachers[i];
     const { confDate, confTime } = generateConfDatetime(reportDate);
-    const dur = choice(durations);
+    const dur = shuffledDurations[durIdx++];
     const sub = i < availableSubs.length ? availableSubs[i] : choice(SUBS);
     absences.push({
       type: "filled",
@@ -438,12 +441,72 @@ function init() {
     btnUpload.disabled = !csvInput.files.length;
   });
 
+  const numHalfAm = $("#num-half-am");
+  const numHalfPm = $("#num-half-pm");
+
+  // Update the duration summary display
+  function updateDurationSummary() {
+    const total = parseInt(numAbsences.value);
+    const am = parseInt(numHalfAm.value);
+    const pm = parseInt(numHalfPm.value);
+    const fullDay = Math.max(0, total - am - pm);
+
+    const summary = $("#duration-summary");
+    summary.innerHTML =
+      `Full Day: <strong>${fullDay}</strong> &nbsp;|&nbsp;` +
+      `Half Day AM: <strong>${am}</strong> &nbsp;|&nbsp;` +
+      `Half Day PM: <strong>${pm}</strong>`;
+  }
+
+  // Clamp half-day sliders so AM + PM never exceeds total absences
+  function clampHalfDaySliders() {
+    const total = parseInt(numAbsences.value);
+    numHalfAm.max = total;
+    numHalfPm.max = total;
+
+    const am = parseInt(numHalfAm.value);
+    const pm = parseInt(numHalfPm.value);
+    if (am + pm > total) {
+      // Reduce the one that was NOT just changed, or PM by default
+      numHalfPm.value = Math.max(0, total - am);
+      $("#half-pm-val").textContent = numHalfPm.value;
+      if (parseInt(numHalfAm.value) + parseInt(numHalfPm.value) > total) {
+        numHalfAm.value = Math.max(0, total - parseInt(numHalfPm.value));
+        $("#half-am-val").textContent = numHalfAm.value;
+      }
+    }
+    updateDurationSummary();
+  }
+
   // Slider value displays
   numAbsences.addEventListener("input", () => {
     $("#absences-val").textContent = numAbsences.value;
+    clampHalfDaySliders();
   });
   numSubs.addEventListener("input", () => {
     $("#subs-val").textContent = numSubs.value;
+  });
+  numHalfAm.addEventListener("input", () => {
+    const total = parseInt(numAbsences.value);
+    const am = parseInt(numHalfAm.value);
+    // Clamp PM if combined exceeds total
+    if (am + parseInt(numHalfPm.value) > total) {
+      numHalfPm.value = Math.max(0, total - am);
+      $("#half-pm-val").textContent = numHalfPm.value;
+    }
+    $("#half-am-val").textContent = numHalfAm.value;
+    updateDurationSummary();
+  });
+  numHalfPm.addEventListener("input", () => {
+    const total = parseInt(numAbsences.value);
+    const pm = parseInt(numHalfPm.value);
+    // Clamp AM if combined exceeds total
+    if (parseInt(numHalfAm.value) + pm > total) {
+      numHalfAm.value = Math.max(0, total - pm);
+      $("#half-am-val").textContent = numHalfAm.value;
+    }
+    $("#half-pm-val").textContent = numHalfPm.value;
+    updateDurationSummary();
   });
 
   // Upload handler
@@ -504,12 +567,6 @@ function init() {
   function doGenerate() {
     if (!roster) return;
 
-    const durations = Array.from($$('input[name="duration"]:checked')).map(cb => cb.value);
-    if (!durations.length) {
-      alert("Select at least one duration type.");
-      return;
-    }
-
     const btnGen = $("#btn-generate");
     btnGen.disabled = true;
     btnGen.textContent = "Generating\u2026";
@@ -523,7 +580,8 @@ function init() {
         roster.teachers,
         parseInt(numAbsences.value),
         parseInt(numSubs.value),
-        durations,
+        parseInt(numHalfAm.value),
+        parseInt(numHalfPm.value),
         rDate
       );
 

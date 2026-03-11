@@ -118,6 +118,10 @@
     h3 { font-size: 1rem; margin: 1rem 0 0.5rem; }
     .sub-cell { color: var(--green); font-weight: 500; }
 
+    .duration-summary {
+      font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem;
+    }
+
     .or-divider {
       text-align: center; color: var(--muted); font-size: 0.85rem;
       margin: 0.75rem 0; font-style: italic;
@@ -180,19 +184,24 @@
       </div>
 
       <div class="field">
-        <label>Duration Types</label>
-        <div class="checkbox-group">
-          <label class="checkbox-label">
-            <input type="checkbox" name="duration" value="Full Day" checked> Full Day
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="duration" value="Half Day AM" checked> Half Day AM
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="duration" value="Half Day PM" checked> Half Day PM
-          </label>
-        </div>
+        <label for="num-half-am">
+          Half Day AM Absences: <span id="half-am-val">0</span>
+        </label>
+        <input type="range" id="num-half-am" min="0" max="10" value="0">
       </div>
+
+      <div class="field">
+        <label for="num-half-pm">
+          Half Day PM Absences: <span id="half-pm-val">0</span>
+        </label>
+        <input type="range" id="num-half-pm" min="0" max="10" value="0">
+      </div>
+
+      <p id="duration-summary" class="duration-summary">
+        Full Day: <strong id="full-day-count">8</strong> &nbsp;|&nbsp;
+        Half Day AM: <strong>0</strong> &nbsp;|&nbsp;
+        Half Day PM: <strong>0</strong>
+      </p>
 
       <button id="btn-generate" class="btn">Generate Report</button>
     </section>
