@@ -33,17 +33,19 @@ const SUBS = [
 ];
 
 const REASONS = [
-  "Sick Day",
-  "Family Illness",
+  "Sick",
+  "Vacation Day",
   "Personal Day",
+  "Release Time",
   "Professional Day",
   "Medical Appointment",
+  "Family Illness",
 ];
 
 const DURATION_MAP = {
-  "Full Day": "7:00 - 2:20",
-  "Half Day AM": "7:00 - 11:15",
-  "Half Day PM": "11:15 - 2:20",
+  "Full Day":    { shift: "7:00 - 2:20",  startTime: "7:00:00 AM",  endTime: "2:20:00 PM",  pct: 1 },
+  "Half Day AM": { shift: "7:00 - 11:15", startTime: "7:00:00 AM",  endTime: "11:15:00 AM", pct: 0.5 },
+  "Half Day PM": { shift: "11:15 - 2:20", startTime: "11:15:00 AM", endTime: "2:20:00 PM",  pct: 0.5 },
 };
 
 const STATUSES = ["Approved", "No Appr. Req."];
@@ -222,7 +224,10 @@ function generateAbsences(teachers, numAbsences, numSubs, halfAmCount, halfPmCou
       name: teacher[0],
       department: teacher[1],
       duration: dur[0],
-      shift: dur[1],
+      shift: dur[1].shift,
+      startTime: dur[1].startTime,
+      endTime: dur[1].endTime,
+      percentOfDay: dur[1].pct,
       reason: choice(REASONS),
       status: choice(STATUSES),
       substitute: null,
@@ -243,7 +248,10 @@ function generateAbsences(teachers, numAbsences, numSubs, halfAmCount, halfPmCou
       name: teacher[0],
       department: teacher[1],
       duration: dur[0],
-      shift: dur[1],
+      shift: dur[1].shift,
+      startTime: dur[1].startTime,
+      endTime: dur[1].endTime,
+      percentOfDay: dur[1].pct,
       reason: choice(REASONS),
       status: choice(STATUSES),
       substitute: sub[0],
@@ -414,6 +422,60 @@ function createPdfReport(reportDate, absences) {
   }
 
   return doc;
+}
+
+// ============================================================================
+// CSV GENERATION
+// ============================================================================
+
+function formatPhoneForCsv(phone) {
+  if (!phone) return "";
+  const digits = phone.replace(/\D/g, "");
+  if (digits.length === 10) return digits.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+  return phone;
+}
+
+function escapeCsvField(val) {
+  const str = String(val);
+  if (str.includes(",") || str.includes('"') || str.includes("\n")) {
+    return '"' + str.replace(/"/g, '""') + '"';
+  }
+  return str;
+}
+
+function createCsvReport(schoolName, absences) {
+  const headers = [
+    "School Name", "Employee Identifier", "Name", "Employee Title",
+    "Start Time (Absence)", "End Time (Absence)", "Absence Type",
+    "Percent of Day (Absence)", "Absence Reason", "Needs Substitute",
+    "Replaced By", "Substitute Phone", "Has Notes", "CONF#"
+  ];
+
+  const rows = absences.map(a => {
+    const needsSub = a.type === "unfilled" ? "Yes" : (Math.random() > 0.5 ? "Yes" : "No");
+    return [
+      schoolName,
+      "",
+      a.name,
+      "",
+      a.startTime,
+      a.endTime,
+      a.duration,
+      a.percentOfDay,
+      a.reason,
+      needsSub,
+      a.substitute || "",
+      formatPhoneForCsv(a.sub_phone),
+      "N",
+      ""
+    ];
+  });
+
+  const lines = [headers.join(",")];
+  for (const row of rows) {
+    lines.push(row.map(escapeCsvField).join(","));
+  }
+  return lines.join("\n");
 }
 
 // ============================================================================
@@ -637,16 +699,29 @@ function init() {
   $("#btn-generate").addEventListener("click", doGenerate);
   $("#btn-regenerate").addEventListener("click", doGenerate);
 
-  // Download PDF handler
+  // Download handler — CSV or PDF based on selected format
   $("#btn-download").addEventListener("click", () => {
     if (!lastAbsences) return;
 
     const dateVal = reportDate.value;
     const parts = dateVal.split("-");
     const rDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+    const format = document.querySelector('input[name="output-format"]:checked').value;
+    const schoolName = ($("#school-name").value || "Demo HS").trim();
 
-    const doc = createPdfReport(rDate, lastAbsences);
-    doc.save(`absence_report_${dateVal.replace(/-/g, "")}.pdf`);
+    if (format === "pdf") {
+      const doc = createPdfReport(rDate, lastAbsences);
+      doc.save(`absence_report_${dateVal.replace(/-/g, "")}.pdf`);
+    } else {
+      const csvContent = createCsvReport(schoolName, lastAbsences);
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `absence_report_${dateVal.replace(/-/g, "")}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
   });
 }
 
